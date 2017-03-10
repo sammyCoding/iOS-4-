@@ -19,5 +19,6 @@
 - (ZWAItem *)createItem;
 - (void)removeItem:(ZWAItem *)item;
 - (void)moveItemAtIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex;
+- (BOOL)saveChanges;
 
 @end

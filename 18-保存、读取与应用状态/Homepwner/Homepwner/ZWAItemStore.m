@@ -21,9 +21,15 @@
 + (instancetype)sharedStore {
     //静态变量，程序不会释放，并不是保存在栈中的。
     static ZWAItemStore *sharedStore = nil;
-    if (!sharedStore) {
-        sharedStore = [[self alloc]initPrivate];
-    }
+//    if (!sharedStore) {
+//        sharedStore = [[self alloc]initPrivate];
+//    }
+    //多线程单例
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedStore = [[self alloc] initPrivate];
+    });
+    
     return sharedStore;
 }
 
@@ -36,13 +42,30 @@
 - (instancetype)initPrivate {
     self = [super init];
     if (self) {
-        _privateItems = [[NSMutableArray alloc]init];
+//        _privateItems = [[NSMutableArray alloc]init];
+        NSString *path = [self itemArchivePath];
+        _privateItems = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+        
+        if (!_privateItems) {
+            _privateItems = [[NSMutableArray alloc] init];
+        }
     }
     return self;
 }
 
+- (NSString *)itemArchivePath {
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [documentDirectories firstObject];
+    return [documentDirectory stringByAppendingPathComponent:@"items.archive"];
+}
+
+- (BOOL)saveChanges {
+    NSString *path = [self itemArchivePath];
+    return [NSKeyedArchiver archiveRootObject:self.privateItems toFile:path];
+}
+
 - (ZWAItem *)createItem {
-    ZWAItem *item = [ZWAItem randomItem];
+    ZWAItem *item = [[ZWAItem alloc] init];
     [self.privateItems addObject:item];
     return item;
 }

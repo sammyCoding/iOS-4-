@@ -13,5 +13,8 @@
 @interface ZWADetailViewController : UIViewController
 
 @property (nonatomic, strong) ZWAItem *item;
+@property (nonatomic, copy) void (^dismissBlock)(void);
+
+- (instancetype)initForNewItem:(BOOL)isNew;
 
 @end

@@ -68,10 +68,26 @@
 
 - (IBAction)addNewItem:(id)sender {
     ZWAItem *newItem = [[ZWAItemStore sharedStore] createItem];
-    NSInteger lastRow = [[[ZWAItemStore sharedStore] allItems] indexOfObject:newItem];
+//    NSInteger lastRow = [[[ZWAItemStore sharedStore] allItems] indexOfObject:newItem];
+//    
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
+//    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:lastRow inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    ZWADetailViewController *detailVC = [[ZWADetailViewController alloc] initForNewItem:YES];
+    detailVC.item = newItem;
+    detailVC.dismissBlock = ^{
+        [self.tableView reloadData];
+    };
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:detailVC];
+    navController.modalPresentationStyle = UIModalPresentationFormSheet;
+    //不覆盖UINavigationBar
+//    navController.modalPresentationStyle = UIModalPresentationCurrentContext;
+//    self.definesPresentationContext = YES;
+//    
+    navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:navController animated:YES completion:nil];
+    
 }
 
 //- (IBAction)toggleEditingMode:(id)sender {
@@ -116,7 +132,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZWADetailViewController *detailVC = [[ZWADetailViewController alloc] init];
+    ZWADetailViewController *detailVC = [[ZWADetailViewController alloc] initForNewItem:NO];
     NSArray *items = [[ZWAItemStore sharedStore] allItems];
     ZWAItem *selectedItem = items[indexPath.row];
     

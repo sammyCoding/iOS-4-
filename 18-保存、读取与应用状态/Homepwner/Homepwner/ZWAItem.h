@@ -17,7 +17,7 @@
  实例变量-类方法-初始化方法-其他方法
  
 */
-@interface ZWAItem : NSObject
+@interface ZWAItem : NSObject<NSCoding>
 /*
 {
     //实例变量
@@ -52,6 +52,7 @@
                     serialNumber:(NSString *)sNumber;
 
 - (instancetype)initWithItemName:(NSString *)name;
+
 
 /*
 - (void)setContainedItem:(ZWAItem *)item;

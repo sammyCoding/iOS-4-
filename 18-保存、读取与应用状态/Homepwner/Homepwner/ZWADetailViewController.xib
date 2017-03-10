@@ -3,11 +3,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZWADetailViewController">
             <connections>
+                <outlet property="cameraButton" destination="9Mo-Xz-ALE" id="C0a-mb-SE3"/>
                 <outlet property="dateLabel" destination="nbJ-kJ-7fp" id="XKc-Uv-eFW"/>
                 <outlet property="imageView" destination="E1h-h0-fVd" id="Hmp-Jk-DQw"/>
                 <outlet property="nameField" destination="mEs-Us-pDd" id="DgO-xx-zSs"/>
@@ -78,7 +80,11 @@
                         <outlet property="delegate" destination="-1" id="Gnc-75-ILp"/>
                     </connections>
                 </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E1h-h0-fVd"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E1h-h0-fVd">
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="E1h-h0-fVd" secondAttribute="height" multiplier="359:315" id="xKS-bf-bQv"/>
+                    </constraints>
+                </imageView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x9S-V5-zv1">
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="QrP-Pc-cq0"/>
@@ -103,7 +109,6 @@
                 <constraint firstItem="nbJ-kJ-7fp" firstAttribute="top" secondItem="T1c-ie-ns7" secondAttribute="bottom" constant="11" id="Cms-kO-wXi"/>
                 <constraint firstAttribute="trailing" secondItem="nbJ-kJ-7fp" secondAttribute="trailing" constant="8" id="EhE-0m-R2Y"/>
                 <constraint firstItem="E1h-h0-fVd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="EkD-8b-gET"/>
-                <constraint firstItem="x9S-V5-zv1" firstAttribute="top" secondItem="E1h-h0-fVd" secondAttribute="bottom" constant="30" id="JKf-wf-md4"/>
                 <constraint firstItem="T1c-ie-ns7" firstAttribute="leading" secondItem="ZFb-ve-pih" secondAttribute="trailing" constant="8" id="JUd-Er-Yek"/>
                 <constraint firstItem="T1c-ie-ns7" firstAttribute="centerY" secondItem="ZFb-ve-pih" secondAttribute="centerY" id="K0u-Wq-cJK"/>
                 <constraint firstItem="DxM-hc-mnK" firstAttribute="top" secondItem="qDg-GP-ZkI" secondAttribute="bottom" constant="8" id="M8h-bg-Eni"/>
